@@ -87,7 +87,23 @@ AGRO-VATORS/
 ├── LICENSE
 └── .gitignore
 ```
+## 📸 Project Gallery
 
+### Rover
+
+<img src="docs/images/rover/rover_front.jpeg" width="500">
+
+---
+
+### Dashboard
+
+<img src="docs/images/dashboard/dashboard.jpeg" width="700">
+
+---
+
+### OLED Display
+
+<img src="docs/images/oled_display.jpg" width="350">
 ---
 
 ## 🚀 Installation
