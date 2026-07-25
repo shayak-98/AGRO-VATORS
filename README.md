@@ -1,4 +1,4 @@
-# 🚜 AGRO-VATORS
+# AGRO-VATORS
 
 <p align="center">
   <b>AI-powered Smart Farming Rover for Plant Disease Detection, Autonomous Navigation, and Real-time IoT Monitoring</b>
@@ -25,7 +25,7 @@ AGRO-VATORS is an intelligent farming rover designed to assist farmers by monito
 
 ---
 
-## ✨ Features
+## Features
 
 - 🌱 Plant disease detection using YOLOv8 and Roboflow
 - 📹 Live ESP32-CAM video streaming
@@ -35,11 +35,11 @@ AGRO-VATORS is an intelligent farming rover designed to assist farmers by monito
 - 📍 GPS location tracking
 - 🤖 Autonomous line-following mode
 - 🎮 Manual rover control through a web dashboard
-- 📊 Live dashboard with sensor data
+- Live dashboard with sensor data
 
 ---
 
-## 🛠️ Hardware Used
+##  Hardware Used
 
 
 | Component | Purpose |
@@ -60,7 +60,7 @@ AGRO-VATORS is an intelligent farming rover designed to assist farmers by monito
 ---
 ---
 
-## 💻 Software Stack
+## Software Stack
 
 
 | Category | Technologies |
@@ -110,7 +110,7 @@ AGRO-VATORS/
 
 ---
 
-## 🚀 Installation
+##  Installation
 
 1. Clone the repository
 
@@ -158,7 +158,7 @@ python app.py
 <img src="docs\images\rover\oled_display.jpeg" width="350">
 
 ---
-## 🏗️ System Architecture
+## System Architecture
 
 <img src="docs/diagrams/system_architecture.png" width="900">
 
@@ -174,7 +174,7 @@ python app.py
 
 ---
 ---
-## 🎥 Demo
+## Demo
 
 Demo videos of the project are available in:
 
@@ -183,7 +183,7 @@ Demo videos of the project are available in:
 - `docs/videos/dashboard_demo.mp4`
 
 ---
-# ▶️ Usage
+# Usage
 
 1. Power the ESP32 rover.
 2. Connect the laptop ,ESP32 and ESP32 CAM  to the same Wi-Fi network.
@@ -195,13 +195,13 @@ Demo videos of the project are available in:
 8. Click **Scan Plant** to detect plant diseases.
 ---
 ---
-# 🔮 Future Improvements
+# Future Improvements
 
-- 🌾 Automatic crop recommendation
-- 🤖 AI-based autonomous navigation
-- ☁️ Cloud database integration
-- 📱 Android application
-- 📊 Historical sensor analytics
+-  Automatic crop recommendation
+- AI-based autonomous navigation
+- Cloud database integration
+- Android application
+- Historical sensor analytics
 
 ---
 ---
