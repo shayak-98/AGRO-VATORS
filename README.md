@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <img src="docs/images/Main_concept/rover_concept.jpg" width="850" alt="AGRO-VATORS">
+  <img src="docs/images/Main_concept/rover_concept.jpeg" width="850" alt="AGRO-VATORS">
 </p>
 <p align="center">
 
