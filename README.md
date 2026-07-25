@@ -138,7 +138,10 @@ python app.py
 <img src="docs\images\rover\oled_display.jpeg" width="350">
 
 ---
+## 🏗️ System Architecture
 
+<img src="docs/diagrams/system_architecture.png" width="900">
+---
 ## 🎥 Demo
 
 Project demonstration videos are available in the `docs/videos` folder.
