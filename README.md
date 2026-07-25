@@ -116,7 +116,7 @@ AGRO-VATORS/
 1. Clone the repository
 
 ```bash
-git clone https://github.com/<your-username>/AGRO-VATORS.git
+git clone https://github.com/shayak-98/AGRO-VATORS.git
 ```
 
 2. Install dependencies
