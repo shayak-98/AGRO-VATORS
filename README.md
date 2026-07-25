@@ -1,32 +1,26 @@
-# 🌱 AGRO-VATORS
+# 🚜 AGRO-VATORS
 
-An AI-powered Smart Farming Rover that combines IoT, Computer Vision, and Artificial Intelligence for precision agriculture.
+**AI-Powered Smart Farming Rover using Computer Vision and IoT**
 
----
-
-## 📖 Overview
-
-AGRO-VATORS is a smart agricultural rover designed to monitor crop conditions in real time. It collects environmental data using multiple sensors, streams live video from an ESP32-CAM, performs object detection using YOLOv8, detects plant diseases using Roboflow AI, and supports both manual and autonomous navigation.
+AGRO-VATORS is an intelligent farming rover designed to assist farmers by monitoring environmental conditions, detecting plant diseases, and supporting autonomous navigation. It combines IoT sensors, computer vision, and a web dashboard for real-time monitoring and control.
 
 ---
 
 ## ✨ Features
 
-- Manual Web Control
-- Autonomous Line Following (3 IR Sensors)
-- Live ESP32-CAM Video Streaming
-- YOLOv8 Real-Time Object Detection
-- AI Plant Disease Detection
-- Smart Irrigation
-- Soil Moisture Monitoring
-- Temperature & Humidity Monitoring
-- Ultrasonic Obstacle Detection
-- GPS Tracking
-- OLED Live Display
+- 🌱 Plant disease detection using YOLOv8 and Roboflow
+- 📹 Live ESP32-CAM video streaming
+- 🌡️ Real-time temperature and humidity monitoring
+- 💧 Soil moisture monitoring
+- 🚰 Water pump control using relay
+- 📍 GPS location tracking
+- 🤖 Autonomous line-following mode
+- 🎮 Manual rover control through a web dashboard
+- 📊 Live dashboard with sensor data
 
 ---
 
-## 🔧 Hardware Used
+## 🛠️ Hardware Used
 
 - ESP32
 - ESP32-CAM
@@ -34,43 +28,93 @@ AGRO-VATORS is a smart agricultural rover designed to monitor crop conditions in
 - DC Motors
 - IR Line Sensors
 - Ultrasonic Sensor
+- DHT11 Sensor
 - Soil Moisture Sensor
-- DHT11
 - GPS Module
 - OLED Display
 - Relay Module
 - Water Pump
-- Servo Pan-Tilt Camera
+- Servo Motors
 
 ---
 
-## 💻 Software Used
+## 💻 Software Stack
 
-- Arduino IDE
-- C++ (Arduino)
+- Arduino IDE (ESP32)
 - Python
 - Flask
 - HTML
 - CSS
 - JavaScript
 - YOLOv8
-- Roboflow API
+- Roboflow
 
 ---
 
-## 🚀 Working Principle
+## 📂 Project Structure
 
-1. ESP32 collects sensor data.
-2. Sensor data is transmitted over Wi-Fi in JSON format.
-3. Flask receives and displays live data.
-4. ESP32-CAM streams live video.
-5. YOLOv8 performs object detection.
-6. When Scan is pressed, an image is sent to Roboflow.
-7. Disease prediction is displayed on the dashboard.
-8. The rover supports both manual and autonomous modes.
+```text
+AGRO-VATORS/
+├── docs/
+├── esp32/
+├── models/
+├── static/
+├── templates/
+├── test/
+├── app.py
+├── plant_health.py
+├── requirements.txt
+├── README.md
+├── LICENSE
+└── .gitignore
+```
+
+---
+
+## 🚀 Installation
+
+1. Clone the repository
+
+```bash
+git clone https://github.com/<your-username>/AGRO-VATORS.git
+```
+
+2. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+3. Create a `.env` file
+
+```
+ROBOFLOW_API_KEY=YOUR_API_KEY
+ROBOFLOW_MODEL_ID=YOUR_MODEL_ID
+```
+
+4. Run the application
+
+```bash
+python app.py
+```
+
+---
+
+## 📸 Project Images
+
+Project images are available in the `docs/images` folder.
+
+---
+
+## 🎥 Demo
+
+Project demonstration videos are available in the `docs/videos` folder.
 
 ---
 
 ## 📄 License
 
-MIT License
+This project is licensed under the MIT License.
+
+---
+
