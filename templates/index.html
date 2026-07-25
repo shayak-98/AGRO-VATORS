@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGRO-CORE // AI Smart Rover Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #0a0f1d;
+            --card-bg: rgba(16, 24, 48, 0.75);
+            --border-glow: #00f2fe;
+            --accent-green: #00ff87;
+            --accent-orange: #ff9f43;
+            --accent-red: #ff4757;
+            --text-primary: #e0e6ed;
+            --text-muted: #8b9bb4;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: linear-gradient(135deg, #050814 0%, #0a1128 100%);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* Top Header Navigation */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto 20px auto;
+            border-bottom: 1px solid rgba(0, 242, 254, 0.2);
+            padding-bottom: 15px;
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            margin: 0;
+            background: linear-gradient(90deg, #00f2fe, #4facfe);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .system-status {
+            font-size: 1.1rem;
+            color: var(--accent-green);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-shadow: 0 0 10px rgba(0, 255, 135, 0.4);
+        }
+
+        /* Main Dashboard Grid Layout */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Span video across multiple columns on larger layouts */
+        .video-card {
+            grid-column: span 2;
+        }
+        @media (max-width: 900px) {
+            .video-card { grid-column: span 1; }
+        }
+
+        /* Cyberpunk Glassmorphic Cards */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid rgba(224, 230, 237, 0.08);
+            border-radius: 12px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Cyberpunk corner accents */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 10px;
+            height: 10px;
+            border-top: 2px solid var(--border-glow);
+            border-left: 2px solid var(--border-glow);
+        }
+
+        .card h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            margin-top: 0;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(224, 230, 237, 0.05);
+            padding-bottom: 10px;
+        }
+
+        /* Controls & Buttons */
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        button {
+            font-family: 'Orbitron', sans-serif;
+            flex: 1;
+            padding: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+            border-color: var(--border-glow);
+            background: rgba(0, 242, 254, 0.1);
+        }
+
+        /* Dynamic Visual Readings */
+        .large-display {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2rem;
+            font-weight: bold;
+            text-align: center;
+            margin: 15px 0;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(255,255,255,0.1);
+        }
+
+        .telemetry-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 5px;
+            border-bottom: 1px solid rgba(224, 230, 237, 0.03);
+            font-size: 1.1rem;
+        }
+
+        .telemetry-row i {
+            width: 25px;
+            color: var(--border-glow);
+        }
+
+        .telemetry-row span.val {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+        }
+
+        /* Camera Feed adjustments */
+        .camera-wrapper {
+            position: relative;
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            overflow: hidden;
+            background: #000;
+        }
+
+        .camera-feed {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Dynamic Status Indicators */
+        .badge {
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .badge-off { background: rgba(139, 155, 180, 0.2); color: var(--text-muted); }
+        .badge-on { background: rgba(0, 255, 137, 0.2); color: var(--accent-green); box-shadow: 0 0 10px rgba(0, 255, 137, 0.2); }
+
+        /* Cross-hair layout overlay for manual controls */
+        .d-pad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            max-width: 220px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1><i class="fa-solid fa-satellite-dish"></i> AGRO-VATORS // Control Panel</h1>
+        <div class="system-status">
+            <i class="fa-solid fa-circle-nodes animate-pulse"></i> Cloud Tunnel Active
+        </div>
+    </header>
+
+    <div class="dashboard-grid">
+
+        <div class="card">
+            <h2><i class="fa-solid fa-toggle-on"></i> Execution Mode</h2>
+            <div id="modeDisplay" class="large-display" style="color: var(--accent-green);">{{ sensor.mode }}</div>
+            <div class="btn-group">
+                <button id="btnAuto" onclick="window.location.href='/auto'">AUTONOMOUS</button>
+                <button id="btnManual" onclick="window.location.href='/manual'">MANUAL</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2><i class="fa-solid fa-gamepad"></i> Tele-Operation</h2>
+            <div class="d-pad">
+                <div></div>
+                <button onclick="window.location.href='/forward'"><i class="fa-solid fa-chevron-up"></i></button>
+                <div></div>
+                <button onclick="window.location.href='/left'"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="btn-stop" onclick="window.location.href='/stop'"><i class="fa-solid fa-square"></i></button>
+                <button onclick="window.location.href='/right'"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+
+        <div class="card video-card">
+            <h2><i class="fa-solid fa-eye"></i> Optical Feed & Dynamic Inference</h2>
+            <div class="camera-wrapper">
+                <img class="camera-feed" src="/video_feed" alt="Establishing link with Rover ESP32-CAM...">
+            </div>
+        </div>
+
+        <div class="card">
+            <h2><i class="fa-solid fa-brain"></i> YOLO Diagnostics</h2>
+            <div id="object-val" class="large-display" style="color: var(--border-glow); text-transform: capitalize;">{{ detection }}</div>
+            <div style="text-align: center; color: var(--text-muted);">Real-time Object Layer Extraction</div>
+        </div>
+
+        <div class="card">
+            <h2><i class="fa-solid fa-seedling"></i> Plant Pathology AI</h2>
+            <div id="health-val" class="large-display" style="color: var(--accent-orange); font-size: 1.6rem;">{{ health }}</div>
+            <button style="border-color: #9b59b6; color: #df9ffb;" onclick="window.location.href='/scan'"><i class="fa-solid fa-qrcode"></i> Analyze Crop Tissue</button>
+        </div>
+
+        <div class="card">
+            <h2><i class="fa-solid fa-chart-simple"></i> Environmental Metrics</h2>
+            <div>
+                <div class="telemetry-row">
+                    <div><i class="fa-solid fa-thermometer"></i> Temperature</div>
+                    <div><span id="temp" class="val">{{ sensor.temperature }}</span> <span style="color:var(--text-muted)">°C</span></div>
+                </div>
+                <div class="telemetry-row">
+                    <div><i class="fa-solid fa-droplet"></i> Rel. Humidity</div>
+                    <div><span id="hum" class="val">{{ sensor.humidity }}</span> <span style="color:var(--text-muted)">%</span></div>
+                </div>
+                <div class="telemetry-row">
+                    <div><i class="fa-solid fa-faucet-drip"></i> Ground Moisture</div>
+                    <div><span id="soil" class="val">{{ sensor.soil }}</span> <span style="color:var(--text-muted)"></span></div>
+                </div>
+                <div class="telemetry-row">
+                    <div><i class="fa-solid fa-ruler"></i> Obstacle Gap</div>
+                    <div><span id="dist" class="val">{{ sensor.distance }}</span> <span style="color:var(--text-muted)">cm</span></div>
+                </div>
+                <div class="telemetry-row">
+                    <div><i class="fa-solid fa-pump-soap"></i> Irrigation Actuator</div>
+                    <div><span id="pump" class="badge badge-off">{{ sensor.pump }}</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2><i class="fa-solid fa-location-crosshairs"></i> Telemetry GPS Tracking</h2>
+            <div>
+                <div class="telemetry-row">
+                    <div><i class="fa-solid fa-compass"></i> Latitude</div>
+                    <div><span id="lat" class="val">{{ sensor.lat }}</span></div>
+                </div>
+                <div class="telemetry-row">
+                    <div><i class="fa-solid fa-compass"></i> Longitude</div>
+                    <div><span id="lon" class="val">{{ sensor.lon }}</span></div>
+                </div>
+            </div>
+            <a id="mapsLink" target="_blank" href="http://googleusercontent.com/maps.google.com/7{{ sensor.lat }},{{ sensor.lon }}" style="text-decoration: none; margin-top: 10px; display: block;">
+                <button style="width: 100%; border-color: #1abc9c; color: #1abc9c;"><i class="fa-solid fa-map-location-dot"></i> Plot Spatial Array</button>
+            </a>
+        </div>
+
+    </div>
+
+<script>
+// Keep the 1Hz background sensor syncing loop alive for real-time reads
+setInterval(() => {
+    fetch('/sensor_data') 
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("temp").innerText = data.temperature;
+        document.getElementById("hum").innerText = data.humidity;
+        document.getElementById("soil").innerText = data.soil;
+        document.getElementById("dist").innerText = data.distance;
+        document.getElementById("lat").innerText = data.lat || "--";
+        document.getElementById("lon").innerText = data.lon || "--";
+
+        // Sync operational badge states
+        const modeDisp = document.getElementById("modeDisplay");
+        modeDisp.innerText = data.mode;
+        modeDisp.style.color = (data.mode === "AUTO") ? "var(--accent-green)" : "var(--accent-orange)";
+
+        // Sync Actuator Relay colors
+        const pumpBadge = document.getElementById("pump");
+        pumpBadge.innerText = data.pump;
+        if(data.pump && data.pump.toString().toLowerCase() === "on") {
+            pumpBadge.className = "badge badge-on";
+        } else {
+            pumpBadge.className = "badge badge-off";
+        }
+    })
+    .catch(err => console.log("Background synchronization paused..."));
+}, 1000);
+
+// Set dynamic font coloring style rules for the health status message based on value
+window.addEventListener('DOMContentLoaded', () => {
+    const healthText = document.getElementById("health-val");
+    if (healthText.innerText.includes("Healthy") || healthText.innerText.includes("✅")) {
+        healthText.style.color = "var(--accent-green)";
+    } else if (healthText.innerText.includes("Waiting")) {
+        healthText.style.color = "var(--text-muted)";
+    } else {
+        healthText.style.color = "var(--accent-red)";
+    }
+});
+</script>
+
+</body>
+</html>
