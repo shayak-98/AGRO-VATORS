@@ -176,7 +176,11 @@ python app.py
 ---
 ## 🎥 Demo
 
-Project demonstration videos are available in the `docs/videos` folder.
+Demo videos of the project are available in:
+
+- 📁 `docs/videos/autonomous_mode.mp4`
+- 📁 `docs/videos/project_demo.mp4`
+- 📁 `docs/videos/dashboard_demo.mp4`
 
 ---
 
