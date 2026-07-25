@@ -63,14 +63,18 @@ AGRO-VATORS is an intelligent farming rover designed to assist farmers by monito
 
 ## 💻 Software Stack
 
-- Arduino IDE (ESP32)
-- Python
-- Flask
-- HTML
-- CSS
-- JavaScript
-- YOLOv8
-- Roboflow
+
+| Category | Technologies |
+|----------|--------------|
+| Programming Language | Python, C++ (Arduino) |
+| Backend | Flask |
+| Frontend | HTML, CSS, JavaScript |
+| AI Model | YOLOv8 |
+| Plant Disease Detection | Roboflow API |
+| Microcontroller | ESP32, ESP32-CAM |
+| IDE | Arduino IDE, VS Code |
+
+---
 
 ---
 
@@ -78,19 +82,32 @@ AGRO-VATORS is an intelligent farming rover designed to assist farmers by monito
 
 ```text
 AGRO-VATORS/
+│
 ├── docs/
+│   ├── diagrams/
+│   ├── images/
+│   └── videos/
+│
 ├── esp32/
+│
 ├── models/
+│
 ├── static/
+│
 ├── templates/
+│
 ├── test/
+│
 ├── app.py
 ├── plant_health.py
 ├── requirements.txt
 ├── README.md
 ├── LICENSE
-└── .gitignore
+├── .gitignore
+└── .env.example
 ```
+
+---
 
 ---
 
