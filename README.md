@@ -5,8 +5,18 @@
 </p>
 
 <p align="center">
-  <img src="docs/images/Main_concept/main_concept.jpg" width="850">
+  <img src="docs/images/Main_concept/rover_concept.jpg" width="850" alt="AGRO-VATORS">
 </p>
+<p align="center">
+
+![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python)
+![Flask](https://img.shields.io/badge/Flask-Web%20Framework-black?logo=flask)
+![ESP32](https://img.shields.io/badge/ESP32-IoT-red)
+![YOLOv8](https://img.shields.io/badge/YOLOv8-Computer%20Vision-green)
+![License](https://img.shields.io/badge/License-MIT-yellow)
+
+</p>
+
 # 🚜 AGRO-VATORS
 
 **AI-Powered Smart Farming Rover using Computer Vision and IoT**
