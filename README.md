@@ -183,10 +183,45 @@ Demo videos of the project are available in:
 - 📁 `docs/videos/dashboard_demo.mp4`
 
 ---
+# ▶️ Usage
 
+1. Power the ESP32 rover.
+2. Connect the laptop ,ESP32 and ESP32 CAM  to the same Wi-Fi network.
+3. Launch the Flask application.
+4. Open the dashboard in your browser.
+5. View live sensor data.
+6. Watch the ESP32-CAM live stream.
+7. Control the rover manually or switch to autonomous mode.
+8. Click **Scan Plant** to detect plant diseases.
+---
+---
+# 🔮 Future Improvements
+
+- 🌾 Automatic crop recommendation
+- 🤖 AI-based autonomous navigation
+- ☁️ Cloud database integration
+- 📱 Android application
+- 📊 Historical sensor analytics
+
+---
+---
+# 🤝 Contributing
+
+Contributions, suggestions, and improvements are welcome.
+
+If you find any issues, please open an Issue or submit a Pull Request.
+
+---
+---
 ## 📄 License
 
 This project is licensed under the MIT License.
 
 ---
+# 👨‍💻 Author
 
+**Shayak Sarkar**
+
+B.Tech CSE 
+
+GitHub: https://github.com/shayak-98
