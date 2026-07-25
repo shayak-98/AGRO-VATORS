@@ -41,7 +41,6 @@ AGRO-VATORS is an intelligent farming rover designed to assist farmers by monito
 
 ## 🛠️ Hardware Used
 
-# 🛠️ Hardware Components
 
 | Component | Purpose |
 |-----------|---------|
@@ -162,6 +161,18 @@ python app.py
 ## 🏗️ System Architecture
 
 <img src="docs/diagrams/system_architecture.png" width="900">
+
+### Workflow
+
+1. ESP32 collects data from environmental sensors.
+2. Sensor data is sent to the Flask dashboard over Wi-Fi.
+3. ESP32-CAM streams live video to the Flask application.
+4. YOLOv8 performs real-time object detection on the video stream.
+5. When the user clicks **Scan Plant**, an image is captured and sent to the Roboflow API.
+6. The disease prediction is displayed on the dashboard.
+7. The rover can be controlled manually or switched to autonomous mode.
+
+---
 ---
 ## 🎥 Demo
 
