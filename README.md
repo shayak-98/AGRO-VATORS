@@ -1,5 +1,14 @@
 # 🚜 AGRO-VATORS
 
+<p align="center">
+  <b>AI-powered Smart Farming Rover for Plant Disease Detection, Autonomous Navigation, and Real-time IoT Monitoring</b>
+</p>
+
+<p align="center">
+  <img src="docs/images/Main_concept/main_concept.jpg" width="850">
+</p>
+# 🚜 AGRO-VATORS
+
 **AI-Powered Smart Farming Rover using Computer Vision and IoT**
 
 AGRO-VATORS is an intelligent farming rover designed to assist farmers by monitoring environmental conditions, detecting plant diseases, and supporting autonomous navigation. It combines IoT sensors, computer vision, and a web dashboard for real-time monitoring and control.
