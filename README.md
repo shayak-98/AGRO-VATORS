@@ -41,20 +41,24 @@ AGRO-VATORS is an intelligent farming rover designed to assist farmers by monito
 
 ## 🛠️ Hardware Used
 
-- ESP32
-- ESP32-CAM
-- L298N Motor Driver
-- DC Motors
-- IR Line Sensors
-- Ultrasonic Sensor
-- DHT11 Sensor
-- Soil Moisture Sensor
-- GPS Module
-- OLED Display
-- Relay Module
-- Water Pump
-- Servo Motors
+# 🛠️ Hardware Components
 
+| Component | Purpose |
+|-----------|---------|
+| ESP32 | Main Controller |
+| ESP32-CAM | Live Video Streaming |
+| L298N Motor Driver | Drive DC Motors |
+| DC Motors | Rover Movement |
+| DHT11 | Temperature & Humidity |
+| Soil Moisture Sensor | Soil Monitoring |
+| Ultrasonic Sensor | Obstacle Detection |
+| GPS Module | Location Tracking |
+| OLED Display | Live Status Display |
+| Relay Module | Water Pump Switching |
+| Water Pump | Irrigation |
+| Servo Motors | Camera Pan & Tilt |
+
+---
 ---
 
 ## 💻 Software Stack
