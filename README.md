@@ -135,7 +135,7 @@ python app.py
 
 ### OLED Display
 
-<img src="docs\images\roveroled_display.jpeg" width="350">
+<img src="docs\images\rover\oled_display.jpeg" width="350">
 
 ---
 
