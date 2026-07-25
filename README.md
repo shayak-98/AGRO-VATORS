@@ -217,11 +217,3 @@ If you find any issues, please open an Issue or submit a Pull Request.
 
 This project is licensed under the MIT License.
 
----
-# 👨‍💻 Author
-
-**Shayak Sarkar**
-
-B.Tech CSE 
-
-GitHub: https://github.com/shayak-98
