@@ -27,15 +27,15 @@ AGRO-VATORS is an intelligent farming rover designed to assist farmers by monito
 
 ## Features
 
-- 🌱 Plant disease detection using YOLOv8 and Roboflow
-- 📹 Live ESP32-CAM video streaming
-- 🌡️ Real-time temperature and humidity monitoring
-- 💧 Soil moisture monitoring
-- 🚰 Water pump control using relay
-- 📍 GPS location tracking
-- 🤖 Autonomous line-following mode
-- 🎮 Manual rover control through a web dashboard
-- Live dashboard with sensor data
+-  Plant disease detection using YOLOv8 and Roboflow
+-  Live ESP32-CAM video streaming
+-  Real-time temperature and humidity monitoring
+-  Soil moisture monitoring
+-  Water pump control using relay
+-  GPS location tracking
+-  Autonomous line-following mode
+-  Manual rover control through a web dashboard
+-  Live dashboard with sensor data
 
 ---
 
@@ -139,7 +139,7 @@ python app.py
 
 ---
 
-## 📸 Project Images
+## Project Images
 
 ### Rover
 
