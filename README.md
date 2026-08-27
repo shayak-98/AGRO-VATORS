@@ -1,5 +1,4 @@
 # AGRO-VATORS
-
 <p align="center">
   <b>AI-powered Smart Farming Rover for Plant Disease Detection, Autonomous Navigation, and Real-time IoT Monitoring</b>
 </p>
