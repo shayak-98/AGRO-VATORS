@@ -37,34 +37,54 @@ HTML = """
             margin-bottom: 20px;
         }
 
-        video {
+        video,
+        #preview {
             width: 100%;
             max-width: 600px;
             border-radius: 15px;
             background: black;
         }
 
+        video {
+            display: block;
+            margin: auto;
+        }
+
         canvas {
             display: none;
         }
 
-        button {
-            margin: 15px 5px;
-            padding: 14px 25px;
+        .buttons {
+            margin: 15px auto;
+            max-width: 600px;
+        }
+
+        button,
+        .upload-label {
+            display: inline-block;
+            margin: 5px;
+            padding: 14px 20px;
             border: none;
             border-radius: 10px;
             font-size: 16px;
             cursor: pointer;
+            color: white;
         }
 
         #scanBtn {
             background: #22c55e;
-            color: white;
+        }
+
+        #uploadLabel {
+            background: #2563eb;
         }
 
         #switchBtn {
             background: #374151;
-            color: white;
+        }
+
+        #imageInput {
+            display: none;
         }
 
         #result {
@@ -74,14 +94,6 @@ HTML = """
             border-radius: 15px;
             background: #1f2937;
             font-size: 22px;
-        }
-
-        #preview {
-            max-width: 600px;
-            width: 100%;
-            border-radius: 15px;
-            margin-top: 15px;
-            display: none;
         }
 
         .loading {
@@ -105,23 +117,44 @@ HTML = """
 <body>
 
     <h1>🌱 AGRI-VISE</h1>
+
     <div class="subtitle">
         AI-Powered Plant Health Scanner
     </div>
 
+    <!-- Camera -->
     <video id="video" autoplay playsinline></video>
 
     <canvas id="canvas"></canvas>
 
-    <br>
+    <div class="buttons">
 
-    <button id="scanBtn" onclick="scanPlant()">
-        📷 Scan Plant
-    </button>
+        <!-- Camera Scan -->
+        <button id="scanBtn" onclick="scanPlant()">
+            📷 Scan Plant
+        </button>
 
-    <button id="switchBtn" onclick="switchCamera()">
-        🔄 Switch Camera
-    </button>
+        <!-- Upload Image -->
+        <label
+            for="imageInput"
+            id="uploadLabel"
+            class="upload-label">
+            📁 Upload Image
+        </label>
+
+        <input
+            type="file"
+            id="imageInput"
+            accept="image/*"
+            onchange="uploadImage(event)"
+        >
+
+        <!-- Switch Camera -->
+        <button id="switchBtn" onclick="switchCamera()">
+            🔄 Switch Camera
+        </button>
+
+    </div>
 
     <img id="preview">
 
@@ -129,10 +162,16 @@ HTML = """
         Ready to scan
     </div>
 
+
 <script>
 
 let stream = null;
 let currentFacingMode = "environment";
+
+
+/* =========================
+   START CAMERA
+========================= */
 
 async function startCamera() {
 
@@ -143,15 +182,20 @@ async function startCamera() {
         }
 
         stream = await navigator.mediaDevices.getUserMedia({
+
             video: {
                 facingMode: currentFacingMode
             },
+
             audio: false
+
         });
 
         document.getElementById("video").srcObject = stream;
 
-    } catch (error) {
+    }
+
+    catch (error) {
 
         document.getElementById("result").innerHTML =
             "❌ Camera Error: " + error.message;
@@ -159,6 +203,10 @@ async function startCamera() {
     }
 }
 
+
+/* =========================
+   SWITCH CAMERA
+========================= */
 
 async function switchCamera() {
 
@@ -168,30 +216,53 @@ async function switchCamera() {
         : "environment";
 
     await startCamera();
+
 }
 
 
+/* =========================
+   SCAN CAMERA IMAGE
+========================= */
+
 async function scanPlant() {
 
-    const video = document.getElementById("video");
-    const canvas = document.getElementById("canvas");
-    const result = document.getElementById("result");
-    const preview = document.getElementById("preview");
+    const video =
+        document.getElementById("video");
+
+    const canvas =
+        document.getElementById("canvas");
+
+    const result =
+        document.getElementById("result");
+
+    const preview =
+        document.getElementById("preview");
+
 
     if (!video.videoWidth) {
 
-        result.innerHTML = "❌ Camera is not ready";
+        result.innerHTML =
+            "❌ Camera is not ready";
+
         return;
 
     }
 
+
     result.innerHTML =
         "<span class='loading'>🤖 Analyzing plant...</span>";
 
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
 
-    const ctx = canvas.getContext("2d");
+    canvas.width =
+        video.videoWidth;
+
+    canvas.height =
+        video.videoHeight;
+
+
+    const ctx =
+        canvas.getContext("2d");
+
 
     ctx.drawImage(
         video,
@@ -201,22 +272,105 @@ async function scanPlant() {
         canvas.height
     );
 
-    canvas.toBlob(async function(blob) {
 
-        preview.src = URL.createObjectURL(blob);
-        preview.style.display = "block";
+    canvas.toBlob(
+        async function(blob) {
 
-        const formData = new FormData();
+            preview.src =
+                URL.createObjectURL(blob);
 
-        formData.append(
-            "image",
-            blob,
-            "plant.jpg"
-        );
+            preview.style.display =
+                "block";
 
-        try {
 
-            const response = await fetch(
+            await sendImageToServer(
+                blob
+            );
+
+        },
+        "image/jpeg",
+        0.9
+    );
+
+}
+
+
+/* =========================
+   UPLOAD IMAGE
+========================= */
+
+async function uploadImage(event) {
+
+    const file =
+        event.target.files[0];
+
+    const result =
+        document.getElementById("result");
+
+    const preview =
+        document.getElementById("preview");
+
+
+    if (!file) {
+        return;
+    }
+
+
+    /* Check image */
+
+    if (!file.type.startsWith("image/")) {
+
+        result.innerHTML =
+            "❌ Please select an image file";
+
+        return;
+
+    }
+
+
+    /* Show uploaded image */
+
+    preview.src =
+        URL.createObjectURL(file);
+
+    preview.style.display =
+        "block";
+
+
+    result.innerHTML =
+        "<span class='loading'>🤖 Analyzing uploaded image...</span>";
+
+
+    await sendImageToServer(file);
+
+}
+
+
+/* =========================
+   SEND IMAGE TO FLASK
+========================= */
+
+async function sendImageToServer(imageBlob) {
+
+    const result =
+        document.getElementById("result");
+
+
+    const formData =
+        new FormData();
+
+
+    formData.append(
+        "image",
+        imageBlob,
+        "plant.jpg"
+    );
+
+
+    try {
+
+        const response =
+            await fetch(
                 "/scan",
                 {
                     method: "POST",
@@ -224,20 +378,31 @@ async function scanPlant() {
                 }
             );
 
-            const data = await response.json();
 
-            result.innerHTML = data.result;
+        const data =
+            await response.json();
 
-        } catch (error) {
 
-            result.innerHTML =
-                "❌ Scan failed: " + error.message;
+        result.innerHTML =
+            data.result;
 
-        }
 
-    }, "image/jpeg", 0.9);
+    }
+
+    catch (error) {
+
+        result.innerHTML =
+            "❌ Scan failed: " +
+            error.message;
+
+    }
+
 }
 
+
+/* =========================
+   START
+========================= */
 
 startCamera();
 

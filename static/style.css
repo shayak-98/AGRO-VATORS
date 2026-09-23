@@ -1,0 +1,87 @@
+:root {
+    --canvas:#f2ede1; --panel:#fbf9f3; --ink:#2a2620; --muted:#7c7360;
+    --border:#d9d1bc; --green:rgb(20, 105, 20);; --green-dark:#33492f; --rust:#bf5322; --red:#9a3226;
+}
+* { box-sizing:border-box; }
+body { margin:0; padding:24px; background:var(--canvas); color:var(--ink); font-family:'Inter',sans-serif; }
+header {
+    max-width:1320px; margin:auto; padding-bottom:16px; margin-bottom:20px;
+    border-bottom:1px solid var(--border); display:flex; justify-content:space-between;
+    align-items:flex-end; flex-wrap:wrap;
+}
+h1 { font-family:'Barlow Condensed',sans-serif; margin:0; font-size:2.1rem; }
+.subtitle { color:var(--muted); font-size:.9rem; margin-top:4px; }
+.rig { border:1px solid var(--border); background:var(--panel); padding:7px 12px; border-radius:4px; font-family:'Barlow Condensed',sans-serif; }
+.language-selector { display:flex; align-items:center; gap:8px; font-size:.85rem; color:var(--muted); }
+.language-selector select { border:1px solid var(--border); border-radius:4px; padding:6px 10px; font-family:'Inter',sans-serif; background:white; }
+.dashboard { max-width:1320px; margin:auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:18px; }
+.panel { background:var(--panel); border:1px solid var(--border); border-radius:6px; padding:18px; }
+.video { grid-column:span 2; }
+@media(max-width:850px) { .video { grid-column:span 1; } }
+h2 { font-family:'Barlow Condensed',sans-serif; font-size:1.1rem; margin:0 0 15px 0; padding-bottom:10px; border-bottom:1px solid var(--border); }
+h2 i { color:var(--green); }
+.value { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:2rem; text-align:center; margin:12px; color:var(--green); }
+.row { display:flex; justify-content:space-between; gap:10px; padding:9px 0; border-bottom:1px solid var(--border); }
+.row:last-child { border-bottom:0; }
+.row i { width:22px; color:var(--muted); }
+.val { font-family:'Barlow Condensed',sans-serif; font-size:1.1rem; font-weight:600; }
+button { border:1px solid var(--border); background:white; padding:11px; border-radius:4px; cursor:pointer; font-weight:600; }
+button:hover { background:#eee9dc; }
+button:disabled { opacity:.6; cursor:wait; }
+.primary { background:var(--green); color:white; border-color:var(--green-dark); }
+.accent { background:var(--rust); color:white; }
+.btn-row { display:flex; gap:8px; margin-top:12px; }
+.btn-row button { flex:1; }
+.dpad { max-width:210px; margin:auto; display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+.camera { width:100%; display:block; border-radius:4px; border:1px solid var(--border); background:#111; }
+.badge { padding:4px 10px; border-radius:4px; font-family:'Barlow Condensed',sans-serif; }
+.badge-on { background:var(--green); color:white; }
+.badge-off { background:#eee8da; color:var(--muted); }
+.decision { text-align:center; padding:13px; border:1px solid var(--border); border-radius:4px; font-family:'Barlow Condensed',sans-serif; font-size:1.5rem; font-weight:700; }
+.recommended { color:var(--green); }
+.delay { color:var(--rust); }
+.wait { color:var(--muted); }
+.info { margin-top:10px; padding:12px; background:#f4f0e5; border:1px solid var(--border); border-radius:4px; font-size:.88rem; line-height:1.5; }
+.status { text-align:center; color:var(--muted); font-size:.8rem; margin-top:10px; }
+.online { color:var(--green); font-weight:600; }
+.offline { color:var(--red); font-weight:600; }
+.location-box { padding:10px; margin-bottom:10px; background:#f4f0e5; border:1px solid var(--border); border-radius:4px; text-align:center; font-size:.85rem; }
+#ag{color: var(--green)}
+#num{color: rgb(218, 75, 75);}
+
+/* SENSOR HISTORY */
+
+.sensor-charts {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.sensor-chart {
+    min-width: 0;
+}
+
+.sensor-chart h3 {
+    margin: 0 0 15px 0;
+    font-size: 17px;
+}
+
+.sensor-chart canvas {
+    width: 100% !important;
+    height: 180px !important;
+}
+#sensorHistoryPanel {
+    grid-column: 1 / -1;
+}
+@media (max-width: 1100px) {
+    .sensor-charts {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .sensor-charts {
+        grid-template-columns: 1fr;
+    }
+}

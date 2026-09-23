@@ -6,96 +6,7 @@
 <title>AGRO-VATORS — Rover Console</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<style>
-:root {
-    --canvas:#f2ede1; --panel:#fbf9f3; --ink:#2a2620; --muted:#7c7360;
-    --border:#d9d1bc; --green:rgb(20, 105, 20);; --green-dark:#33492f; --rust:#bf5322; --red:#9a3226;
-}
-* { box-sizing:border-box; }
-body { margin:0; padding:24px; background:var(--canvas); color:var(--ink); font-family:'Inter',sans-serif; }
-header {
-    max-width:1320px; margin:auto; padding-bottom:16px; margin-bottom:20px;
-    border-bottom:1px solid var(--border); display:flex; justify-content:space-between;
-    align-items:flex-end; flex-wrap:wrap;
-}
-h1 { font-family:'Barlow Condensed',sans-serif; margin:0; font-size:2.1rem; }
-.subtitle { color:var(--muted); font-size:.9rem; margin-top:4px; }
-.rig { border:1px solid var(--border); background:var(--panel); padding:7px 12px; border-radius:4px; font-family:'Barlow Condensed',sans-serif; }
-.language-selector { display:flex; align-items:center; gap:8px; font-size:.85rem; color:var(--muted); }
-.language-selector select { border:1px solid var(--border); border-radius:4px; padding:6px 10px; font-family:'Inter',sans-serif; background:white; }
-.dashboard { max-width:1320px; margin:auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:18px; }
-.panel { background:var(--panel); border:1px solid var(--border); border-radius:6px; padding:18px; }
-.video { grid-column:span 2; }
-@media(max-width:850px) { .video { grid-column:span 1; } }
-h2 { font-family:'Barlow Condensed',sans-serif; font-size:1.1rem; margin:0 0 15px 0; padding-bottom:10px; border-bottom:1px solid var(--border); }
-h2 i { color:var(--green); }
-.value { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:2rem; text-align:center; margin:12px; color:var(--green); }
-.row { display:flex; justify-content:space-between; gap:10px; padding:9px 0; border-bottom:1px solid var(--border); }
-.row:last-child { border-bottom:0; }
-.row i { width:22px; color:var(--muted); }
-.val { font-family:'Barlow Condensed',sans-serif; font-size:1.1rem; font-weight:600; }
-button { border:1px solid var(--border); background:white; padding:11px; border-radius:4px; cursor:pointer; font-weight:600; }
-button:hover { background:#eee9dc; }
-button:disabled { opacity:.6; cursor:wait; }
-.primary { background:var(--green); color:white; border-color:var(--green-dark); }
-.accent { background:var(--rust); color:white; }
-.btn-row { display:flex; gap:8px; margin-top:12px; }
-.btn-row button { flex:1; }
-.dpad { max-width:210px; margin:auto; display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
-.camera { width:100%; display:block; border-radius:4px; border:1px solid var(--border); background:#111; }
-.badge { padding:4px 10px; border-radius:4px; font-family:'Barlow Condensed',sans-serif; }
-.badge-on { background:var(--green); color:white; }
-.badge-off { background:#eee8da; color:var(--muted); }
-.decision { text-align:center; padding:13px; border:1px solid var(--border); border-radius:4px; font-family:'Barlow Condensed',sans-serif; font-size:1.5rem; font-weight:700; }
-.recommended { color:var(--green); }
-.delay { color:var(--rust); }
-.wait { color:var(--muted); }
-.info { margin-top:10px; padding:12px; background:#f4f0e5; border:1px solid var(--border); border-radius:4px; font-size:.88rem; line-height:1.5; }
-.status { text-align:center; color:var(--muted); font-size:.8rem; margin-top:10px; }
-.online { color:var(--green); font-weight:600; }
-.offline { color:var(--red); font-weight:600; }
-.location-box { padding:10px; margin-bottom:10px; background:#f4f0e5; border:1px solid var(--border); border-radius:4px; text-align:center; font-size:.85rem; }
-#ag{color: var(--green)}
-#num{color: rgb(218, 75, 75);}
-
-/* SENSOR HISTORY */
-
-.sensor-charts {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 25px;
-    margin-top: 20px;
-}
-
-.sensor-chart {
-    min-width: 0;
-}
-
-.sensor-chart h3 {
-    margin: 0 0 15px 0;
-    font-size: 17px;
-}
-
-.sensor-chart canvas {
-    width: 100% !important;
-    height: 180px !important;
-}
-#sensorHistoryPanel {
-    grid-column: 1 / -1;
-}
-@media (max-width: 1100px) {
-    .sensor-charts {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 600px) {
-    .sensor-charts {
-        grid-template-columns: 1fr;
-    }
-}
-</style>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
@@ -230,6 +141,163 @@ button:disabled { opacity:.6; cursor:wait; }
 </div>
 </div>
 
+<!-- =========================================================
+     AI INTER-CROP ADVISOR
+========================================================= -->
+
+<div class="panel" id="intercropPanel">
+
+    <h2>
+        <i class="fa-solid fa-seedling"></i>
+        AI Inter-Crop Advisor
+    </h2>
+
+
+    <div class="row">
+
+        <div>
+            Previous Crop
+        </div>
+
+        <div>
+
+            <select
+                id="previousCrop"
+                style="padding:8px; width:180px;"
+            >
+
+                <option value="">
+                    Select crop
+                </option>
+
+                <option>Rice</option>
+                <option>Wheat</option>
+                <option>Maize</option>
+                <option>Potato</option>
+                <option>Mustard</option>
+                <option>Jute</option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <div class="row">
+
+        <div>
+            Next Planned Crop
+        </div>
+
+        <div>
+
+            <select
+                id="nextCrop"
+                style="padding:8px; width:180px;"
+            >
+
+                <option value="">
+                    Select crop
+                </option>
+
+                <option>Rice</option>
+                <option>Wheat</option>
+                <option>Maize</option>
+                <option>Potato</option>
+                <option>Mustard</option>
+                <option>Jute</option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <div class="row">
+
+        <div>
+            Previous Crop Harvest
+        </div>
+
+        <div>
+
+            <input
+                type="date"
+                id="harvestDate"
+            >
+
+        </div>
+
+    </div>
+
+
+    <div class="row">
+
+        <div>
+            Next Crop Planting
+        </div>
+
+        <div>
+
+            <input
+                type="date"
+                id="nextPlantingDate"
+            >
+
+        </div>
+
+    </div>
+
+
+    <div class="row">
+
+        <div>
+            Soil Image
+        </div>
+
+        <div>
+
+            <input
+                type="file"
+                id="soilImage"
+                accept="image/jpeg,image/png,image/webp"
+            >
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="intercropValidation"
+        class="info"
+        style="display:none;"
+    ></div>
+
+
+    <button
+        type="button"
+        class="primary"
+        style="width:100%; margin-top:12px;"
+        onclick="getIntercropRecommendation()"
+        id="intercropButton"
+    >
+
+        <i class="fa-solid fa-brain"></i>
+
+        Analyze/Crop-Recommendation
+
+    </button>
+
+
+    <div
+        id="intercropResult"
+        style="margin-top:15px;"
+    ></div>
+
+</div>
 <div class="panel">
 <h2><i class="fa-solid fa-brain"></i> <span data-i18n="irrigation">Agricultural Intelligence</span></h2>
 <div id="irrigation" class="decision">{{ decision.irrigation }}</div>
@@ -255,7 +323,7 @@ button:disabled { opacity:.6; cursor:wait; }
 </div>
 </div>
 <!-- SENSOR HISTORY -->
-<!-- <section class="panel" id="sensorHistoryPanel">
+<section class="panel" id="sensorHistoryPanel">
 
     <h2>📈 Sensor History</h2>
 
@@ -283,7 +351,7 @@ button:disabled { opacity:.6; cursor:wait; }
 
     </div>
 
-</section> -->
+</section>
 <div class="panel">
 <h2><i class="fa-solid fa-location-dot"></i> <span data-i18n="gps">Rover GPS Location</span></h2>
 <div id="gpsStatus" class="location-box" data-status-kind="waiting">Waiting for NEO-6M GPS fix...</div>
@@ -296,612 +364,8 @@ button:disabled { opacity:.6; cursor:wait; }
 
 </div>
 
-<script>
-    // ===============================
-// SENSOR HISTORY GRAPHS
-// ===============================
-
-// let temperatureChart;
-// let humidityChart;
-// let soilChart;
-// let distanceChart;
-
-// async function loadSensorHistory() {
-
-//     try {
-
-//         const response = await fetch(
-//             "/api/sensors/history?limit=100&t=" + Date.now(),
-//             {
-//                 method: "GET",
-//                 cache: "no-store"
-//             }
-//         );
-
-//         if (!response.ok) {
-//             throw new Error("History HTTP error");
-//         }
-
-//         const result = await response.json();
-
-//         if (!result.success || !result.data) {
-//             console.log("No sensor history available");
-//             return;
-//         }
-
-//         const history = result.data;
-
-//         // Database returns newest first,
-//         // so reverse it for chronological graphs.
-//         history.reverse();
-
-//         const labels = history.map(row => {
-//             const date = new Date(row.timestamp);
-//             return date.toLocaleTimeString();
-//         });
-
-//         const temperature = history.map(row =>
-//             Number(row.temperature)
-//         );
-
-//         const humidity = history.map(row =>
-//             Number(row.humidity)
-//         );
-
-//         const soil = history.map(row =>
-//             Number(row.soil)
-//         );
-
-//         const distance = history.map(row =>
-//             Number(row.distance)
-//         );
-
-
-//         // -------------------------------
-//         // TEMPERATURE
-//         // -------------------------------
-
-//         if (temperatureChart) {
-//             temperatureChart.destroy();
-//         }
-
-//         temperatureChart = new Chart(
-//             document.getElementById("temperatureChart"),
-//             {
-//                 type: "line",
-
-//                 data: {
-//                     labels: labels,
-
-//                     datasets: [{
-//                         label: "Temperature (°C)",
-//                         data: temperature,
-//                         borderWidth: 2,
-//                         tension: 0.3,
-//                         pointRadius: 2,
-//                         fill: false
-//                     }]
-//                 },
-
-//                 options: {
-//                     responsive: true,
-//                     maintainAspectRatio: false,
-
-//                     plugins: {
-//                         legend: {
-//                             display: true
-//                         }
-//                     },
-
-//                     scales: {
-//                         x: {
-//                             ticks: {
-//                                 maxTicksLimit: 6
-//                             }
-//                         },
-
-//                         y: {
-//                             beginAtZero: false
-//                         }
-//                     }
-//                 }
-//             }
-//         );
-
-
-//         // -------------------------------
-//         // HUMIDITY
-//         // -------------------------------
-
-//         if (humidityChart) {
-//             humidityChart.destroy();
-//         }
-
-//         humidityChart = new Chart(
-//             document.getElementById("humidityChart"),
-//             {
-//                 type: "line",
-
-//                 data: {
-//                     labels: labels,
-
-//                     datasets: [{
-//                         label: "Humidity (%)",
-//                         data: humidity,
-//                         borderWidth: 2,
-//                         tension: 0.3,
-//                         pointRadius: 2,
-//                         fill: false
-//                     }]
-//                 },
-
-//                 options: {
-//                     responsive: true,
-//                     maintainAspectRatio: false,
-
-//                     plugins: {
-//                         legend: {
-//                             display: true
-//                         }
-//                     },
-
-//                     scales: {
-//                         x: {
-//                             ticks: {
-//                                 maxTicksLimit: 6
-//                             }
-//                         },
-
-//                         y: {
-//                             beginAtZero: true
-//                         }
-//                     }
-//                 }
-//             }
-//         );
-
-
-//         // -------------------------------
-//         // SOIL
-//         // -------------------------------
-
-//         if (soilChart) {
-//             soilChart.destroy();
-//         }
-
-//         soilChart = new Chart(
-//             document.getElementById("soilChart"),
-//             {
-//                 type: "line",
-
-//                 data: {
-//                     labels: labels,
-
-//                     datasets: [{
-//                         label: "Soil Sensor",
-//                         data: soil,
-//                         borderWidth: 2,
-//                         tension: 0.3,
-//                         pointRadius: 2,
-//                         fill: false
-//                     }]
-//                 },
-
-//                 options: {
-//                     responsive: true,
-//                     maintainAspectRatio: false,
-
-//                     plugins: {
-//                         legend: {
-//                             display: true
-//                         }
-//                     },
-
-//                     scales: {
-//                         x: {
-//                             ticks: {
-//                                 maxTicksLimit: 6
-//                             }
-//                         },
-
-//                         y: {
-//                             beginAtZero: true
-//                         }
-//                     }
-//                 }
-//             }
-//         );
-
-
-//         // -------------------------------
-//         // DISTANCE
-//         // -------------------------------
-
-//         if (distanceChart) {
-//             distanceChart.destroy();
-//         }
-
-//         distanceChart = new Chart(
-//             document.getElementById("distanceChart"),
-//             {
-//                 type: "line",
-
-//                 data: {
-//                     labels: labels,
-
-//                     datasets: [{
-//                         label: "Distance (cm)",
-//                         data: distance,
-//                         borderWidth: 2,
-//                         tension: 0.3,
-//                         pointRadius: 2,
-//                         fill: false
-//                     }]
-//                 },
-
-//                 options: {
-//                     responsive: true,
-//                     maintainAspectRatio: false,
-
-//                     plugins: {
-//                         legend: {
-//                             display: true
-//                         }
-//                     },
-
-//                     scales: {
-//                         x: {
-//                             ticks: {
-//                                 maxTicksLimit: 6
-//                             }
-//                         },
-
-//                         y: {
-//                             beginAtZero: true
-//                         }
-//                     }
-//                 }
-//             }
-//         );
-
-//     } catch (error) {
-
-//         console.error(
-//             "Sensor history error:",
-//             error
-//         );
-
-//     }
-// }
-const translations = {
-    en: {
-        subtitle: "AI-powered agricultural rover console",
-        language: "Language", auto: "Auto", manual: "Manual",
-        driveMode: "Drive Mode", driveControl: "Drive Control",
-        cameraDetection: "Camera & AI Detection", detection: "Detection:",
-        cameraPanTilt: "Camera Pan / Tilt", cameraScan: "Camera Scan",
-        plantHealth: "Plant Health", scanPlant: "Scan Plant",
-        fieldConditions: "Field Conditions", obstacle: "Obstacle", pump: "Pump",
-        pumpOn: "Pump ON", pumpOff: "Pump OFF",
-        soilMoisture: "Soil Moisture", temperature: "Temperature", humidity: "Humidity",
-        weatherIntelligence: "Weather Intelligence", condition: "Condition",
-        rainProbability: "Rain Probability", forecastRain: "Forecast Rain",
-        wind: "Wind", forecastHigh: "Forecast High",
-        irrigation: "Agricultural Intelligence", decisionLabel: "Decision:",
-        recommended: "RECOMMENDED", notRequired: "NOT REQUIRED", delay: "DELAY", suspended: "SUSPENDED",
-        rainRisk: "Rain Risk", floodRisk: "Flood Risk", heatRisk: "Heat Risk", overallRisk: "Overall Risk",
-        gps: "Rover GPS Location", latitude: "Latitude", longitude: "Longitude", openLocation: "Open Rover Location",
-        healthy: "HEALTHY", unhealthy: "UNHEALTHY", uncertain: "UNCERTAIN",
-        noPest: "No Pest Detected", pestDetected: "Pest Detected",
-        noDeficiency: "No Deficiency Detected", deficiencyDetected: "Possible Nutrient Deficiency",
-        checkingEsp: "Checking ESP32...", espOnline: "● ESP32 ONLINE", espOffline: "● ESP32 OFFLINE",
-        requestingLocation: "Requesting laptop location...",
-        requestingPermission: "Requesting laptop location permission...",
-        locationDenied: "Laptop location permission denied. Weather unavailable.",
-        locationSet: "Weather location: Laptop GPS",
-        locationUploadFailed: "Weather location upload failed",
-        gpsFix: "GPS FIX — Rover location", gpsWaiting: "Waiting for NEO-6M GPS fix",
-        noGeolocation: "Browser does not support location."
-    },
-    hi: {
-        subtitle: "AI-संचालित कृषि रोवर कंसोल",
-        language: "भाषा", auto: "ऑटो", manual: "मैनुअल",
-        driveMode: "ड्राइव मोड", driveControl: "ड्राइव नियंत्रण",
-        cameraDetection: "कैमरा और AI डिटेक्शन", detection: "डिटेक्शन:",
-        cameraPanTilt: "कैमरा पैन / टिल्ट", cameraScan: "कैमरा स्कैन",
-        plantHealth: "पौधे का स्वास्थ्य", scanPlant: "पौधे की जाँच करें",
-        fieldConditions: "खेत की स्थिति", obstacle: "बाधा", pump: "पंप",
-        pumpOn: "पंप चालू", pumpOff: "पंप बंद",
-        soilMoisture: "मिट्टी की नमी", temperature: "तापमान", humidity: "आर्द्रता",
-        weatherIntelligence: "मौसम जानकारी", condition: "स्थिति",
-        rainProbability: "बारिश की संभावना", forecastRain: "पूर्वानुमानित बारिश",
-        wind: "हवा", forecastHigh: "अधिकतम तापमान पूर्वानुमान",
-        irrigation: "कृषि बुद्धिमत्ता", decisionLabel: "निर्णय:",
-        recommended: "सिंचाई आवश्यक", notRequired: "सिंचाई आवश्यक नहीं", delay: "सिंचाई स्थगित", suspended: "सिंचाई बंद",
-        rainRisk: "बारिश का जोखिम", floodRisk: "बाढ़ का जोखिम", heatRisk: "गर्मी का जोखिम", overallRisk: "कुल जोखिम",
-        gps: "रोवर GPS स्थान", latitude: "अक्षांश", longitude: "देशांतर", openLocation: "रोवर स्थान खोलें",
-        healthy: "स्वस्थ", unhealthy: "अस्वस्थ", uncertain: "अनिश्चित",
-        noPest: "कोई कीट नहीं मिला", pestDetected: "कीट का पता चला",
-        noDeficiency: "पोषक तत्वों की कमी नहीं मिली", deficiencyDetected: "पोषक तत्वों की संभावित कमी",
-        checkingEsp: "ESP32 जाँच रहे हैं...", espOnline: "● ESP32 ऑनलाइन", espOffline: "● ESP32 ऑफ़लाइन",
-        requestingLocation: "लैपटॉप स्थान का अनुरोध...",
-        requestingPermission: "लैपटॉप स्थान अनुमति का अनुरोध...",
-        locationDenied: "लैपटॉप स्थान अनुमति अस्वीकृत। मौसम अनुपलब्ध।",
-        locationSet: "मौसम स्थान: लैपटॉप GPS",
-        locationUploadFailed: "मौसम स्थान अपलोड विफल",
-        gpsFix: "GPS फिक्स — रोवर स्थान", gpsWaiting: "NEO-6M GPS फिक्स की प्रतीक्षा",
-        noGeolocation: "ब्राउज़र स्थान का समर्थन नहीं करता।"
-    },
-    bn: {
-        subtitle: "AI-চালিত কৃষি রোভার কনসোল",
-        language: "ভাষা", auto: "অটো", manual: "ম্যানুয়াল",
-        driveMode: "ড্রাইভ মোড", driveControl: "ড্রাইভ নিয়ন্ত্রণ",
-        cameraDetection: "ক্যামেরা ও AI শনাক্তকরণ", detection: "শনাক্তকরণ:",
-        cameraPanTilt: "ক্যামেরা প্যান / টিল্ট", cameraScan: "ক্যামেরা স্ক্যান",
-        plantHealth: "গাছের স্বাস্থ্য", scanPlant: "গাছ পরীক্ষা করুন",
-        fieldConditions: "ক্ষেত্রের অবস্থা", obstacle: "বাধা", pump: "পাম্প",
-        pumpOn: "পাম্প চালু", pumpOff: "পাম্প বন্ধ",
-        soilMoisture: "মাটির আর্দ্রতা", temperature: "তাপমাত্রা", humidity: "আর্দ্রতা",
-        weatherIntelligence: "আবহাওয়ার তথ্য", condition: "অবস্থা",
-        rainProbability: "বৃষ্টির সম্ভাবনা", forecastRain: "পূর্বাভাসিত বৃষ্টি",
-        wind: "বাতাস", forecastHigh: "সর্বোচ্চ তাপমাত্রার পূর্বাভাস",
-        irrigation: "কৃষি বুদ্ধিমত্তা", decisionLabel: "সিদ্ধান্ত:",
-        recommended: "সেচ প্রয়োজন", notRequired: "সেচ প্রয়োজন নেই", delay: "সেচ স্থগিত", suspended: "সেচ বন্ধ",
-        rainRisk: "বৃষ্টির ঝুঁকি", floodRisk: "বন্যার ঝুঁকি", heatRisk: "তাপের ঝুঁকি", overallRisk: "সামগ্রিক ঝুঁকি",
-        gps: "রোভার GPS অবস্থান", latitude: "অক্ষাংশ", longitude: "দ্রাঘিমাংশ", openLocation: "রোভারের অবস্থান খুলুন",
-        healthy: "সুস্থ", unhealthy: "অসুস্থ", uncertain: "অনিশ্চিত",
-        noPest: "কোনও পোকা শনাক্ত হয়নি", pestDetected: "পোকা শনাক্ত হয়েছে",
-        noDeficiency: "পুষ্টির ঘাটতি শনাক্ত হয়নি", deficiencyDetected: "পুষ্টির সম্ভাব্য ঘাটতি",
-        checkingEsp: "ESP32 পরীক্ষা করা হচ্ছে...", espOnline: "● ESP32 অনলাইন", espOffline: "● ESP32 অফলাইন",
-        requestingLocation: "ল্যাপটপের অবস্থান অনুরোধ করা হচ্ছে...",
-        requestingPermission: "ল্যাপটপ অবস্থান অনুমতির অনুরোধ করা হচ্ছে...",
-        locationDenied: "ল্যাপটপ অবস্থানের অনুমতি প্রত্যাখ্যাত। আবহাওয়া অনুপলব্ধ।",
-        locationSet: "আবহাওয়ার অবস্থান: ল্যাপটপ GPS",
-        locationUploadFailed: "অবস্থান আপলোড ব্যর্থ হয়েছে",
-        gpsFix: "GPS ফিক্স — রোভারের অবস্থান", gpsWaiting: "NEO-6M GPS ফিক্সের অপেক্ষায়",
-        noGeolocation: "ব্রাউজার অবস্থান সমর্থন করে না।"
-    }
-};
-
-const irrigationStatusKeyMap = {
-    "RECOMMENDED": "recommended", "NOT REQUIRED": "notRequired",
-    "DELAY": "delay", "SUSPENDED": "suspended", "WAIT": "notRequired"
-};
-
-let currentLanguage = "en";
-let lastIrrigationStatus = null;
-
-function t(key) {
-    const dict = translations[currentLanguage];
-    return (dict && dict[key]) ? dict[key] : (translations.en[key] || key);
-}
-
-function renderIrrigationText() {
-    const irrigation = document.getElementById("irrigation");
-    if (!irrigation) return;
-    const key = irrigationStatusKeyMap[lastIrrigationStatus];
-    irrigation.innerText = key ? t(key) : (lastIrrigationStatus || irrigation.innerText);
-}
-
-// Re-renders any JS-driven status text (ESP32 status, GPS status, location box)
-// based on the "kind" tag stored on the element, so switching language mid-session
-// updates dynamic text too, not just static labels.
-function renderStatusElements() {
-    const esp = document.getElementById("espStatus");
-    const kind = esp.dataset.statusKind;
-    if (kind === "checking") esp.innerText = t("checkingEsp");
-    else if (kind === "online") esp.innerText = t("espOnline");
-    else if (kind === "offline") esp.innerText = t("espOffline");
-
-    const gpsStatus = document.getElementById("gpsStatus");
-    const gpsKind = gpsStatus.dataset.statusKind;
-    if (gpsKind === "waiting") gpsStatus.innerText = t("gpsWaiting");
-    else if (gpsKind === "fix") gpsStatus.innerText = t("gpsFix");
-
-    const weatherLoc = document.getElementById("weatherLocationStatus");
-    const wlKind = weatherLoc.dataset.statusKind;
-    if (wlKind === "requesting") weatherLoc.innerText = t("requestingLocation");
-    else if (wlKind === "requestingPermission") weatherLoc.innerText = t("requestingPermission");
-    else if (wlKind === "denied") weatherLoc.innerText = t("locationDenied");
-    else if (wlKind === "set") weatherLoc.innerText = t("locationSet");
-    else if (wlKind === "uploadFailed") weatherLoc.innerText = t("locationUploadFailed");
-    else if (wlKind === "noSupport") weatherLoc.innerText = t("noGeolocation");
-}
-
-function changeLanguage(language) {
-    currentLanguage = language;
-    document.querySelectorAll("[data-i18n]").forEach(element => {
-        element.innerText = t(element.dataset.i18n);
-    });
-    renderIrrigationText();
-    renderStatusElements();
-    localStorage.setItem("agrivise_language", language);
-}
-
-console.log("DASHBOARD SCRIPT LOADED — build " + Date.now());
-
-let commandBusy = false;
-
-async function sendCommand(path, button) {
-    if (commandBusy) return;
-    commandBusy = true;
-    const status = document.getElementById("espStatus");
-    if (button) button.disabled = true;
-    try {
-        status.dataset.statusKind = "sending";
-        status.innerText = "..."; // brief transient state, not worth a translation key
-        status.className = "status";
-        const response = await fetch(path + "?t=" + Date.now(), {
-            method:"GET", cache:"no-store", headers:{"Cache-Control":"no-cache"}
-        });
-        if (!response.ok) throw new Error("HTTP " + response.status);
-        const result = await response.json();
-        if (result.success) {
-            status.dataset.statusKind = "online";
-            status.innerText = t("espOnline");
-            status.className = "status online";
-            updateSensors();
-        } else {
-            status.dataset.statusKind = "offline";
-            status.innerText = t("espOffline");
-            status.className = "status offline";
-        }
-    } catch(error) {
-        status.dataset.statusKind = "offline";
-        status.innerText = t("espOffline");
-        status.className = "status offline";
-    } finally {
-        if (button) button.disabled = false;
-        commandBusy = false;
-    }
-}
-window.sendCommand = sendCommand;
-
-function requestLaptopLocation() {
-    const status = document.getElementById("weatherLocationStatus");
-    if (!navigator.geolocation) {
-        status.dataset.statusKind = "noSupport";
-        status.innerText = t("noGeolocation");
-        return;
-    }
-    status.dataset.statusKind = "requestingPermission";
-    status.innerText = t("requestingPermission");
-    navigator.geolocation.getCurrentPosition(
-        async function(position) {
-            const { latitude, longitude, accuracy } = position.coords;
-            try {
-                const response = await fetch("/set_weather_location", {
-                    method:"POST",
-                    headers:{"Content-Type":"application/json"},
-                    cache:"no-store",
-                    body:JSON.stringify({ latitude, longitude, accuracy })
-                });
-                const result = await response.json();
-                if (result.success) {
-                    status.dataset.statusKind = "set";
-                    status.innerText = t("locationSet");
-                    status.className = "location-box online";
-                    updateIntelligence();
-                }
-            } catch(error) {
-                status.dataset.statusKind = "uploadFailed";
-                status.innerText = t("locationUploadFailed");
-                status.className = "location-box offline";
-            }
-        },
-        function(error) {
-            status.dataset.statusKind = "denied";
-            status.innerText = t("locationDenied");
-            status.className = "location-box offline";
-        },
-        { enableHighAccuracy:true, timeout:15000, maximumAge:300000 }
-    );
-}
-
-let sensorBusy = false;
-async function updateSensors() {
-    if (sensorBusy) return;
-    sensorBusy = true;
-    try {
-        const response = await fetch("/sensor_data?t=" + Date.now(), { method:"GET", cache:"no-store" });
-        if (!response.ok) throw new Error("Sensor HTTP error");
-        const data = await response.json();
-
-        document.getElementById("temperature").innerText = data.temperature;
-        document.getElementById("humidity").innerText = data.humidity;
-        document.getElementById("soil").innerText = data.soil;
-        document.getElementById("distance").innerText = data.distance;
-        document.getElementById("mode").innerText = data.mode;
-
-        const pump = document.getElementById("pump");
-        pump.innerText = data.pump;
-        pump.className = (data.pump && data.pump.toString().toUpperCase() === "ON") ? "badge badge-on" : "badge badge-off";
-
-        const gpsStatus = document.getElementById("gpsStatus");
-        if (data.lat !== undefined && data.lon !== undefined) {
-            document.getElementById("lat").innerText = data.lat;
-            document.getElementById("lon").innerText = data.lon;
-            gpsStatus.dataset.statusKind = "fix";
-            gpsStatus.innerText = t("gpsFix");
-            gpsStatus.className = "location-box online";
-            document.getElementById("mapLink").href = "https://www.google.com/maps?q=" + data.lat + "," + data.lon;
-        } else {
-            gpsStatus.dataset.statusKind = "waiting";
-            gpsStatus.innerText = t("gpsWaiting");
-            gpsStatus.className = "location-box";
-        }
-
-        const esp = document.getElementById("espStatus");
-        if (!commandBusy) {
-            esp.dataset.statusKind = "online";
-            esp.innerText = t("espOnline");
-            esp.className = "status online";
-        }
-    } catch(error) {
-        const esp = document.getElementById("espStatus");
-        esp.dataset.statusKind = "offline";
-        esp.innerText = t("espOffline");
-        esp.className = "status offline";
-    } finally {
-        sensorBusy = false;
-    }
-}
-
-let intelligenceBusy = false;
-async function updateIntelligence() {
-    if (intelligenceBusy) return;
-    intelligenceBusy = true;
-    try {
-        const response = await fetch("/agri_intelligence?t=" + Date.now(), { method:"GET", cache:"no-store" });
-        if (!response.ok) throw new Error("Intelligence HTTP error");
-        const result = await response.json();
-        const weather = result.weather;
-        const decision = result.decision;
-
-        document.getElementById("weatherCondition").innerText = weather.condition;
-        document.getElementById("weatherTemperature").innerText = weather.temperature;
-        document.getElementById("rainProbability").innerText = weather.rain_probability;
-        document.getElementById("rainForecast").innerText = weather.rain_forecast;
-        document.getElementById("wind").innerText = weather.wind_speed;
-        document.getElementById("forecastMax").innerText = weather.forecast_max;
-
-        const irrigation = document.getElementById("irrigation");
-        irrigation.className = "decision";
-        if (decision.irrigation === "RECOMMENDED") irrigation.classList.add("recommended");
-        else if (decision.irrigation === "DELAY" || decision.irrigation === "SUSPENDED") irrigation.classList.add("delay");
-        else irrigation.classList.add("wait");
-
-        lastIrrigationStatus = decision.irrigation;
-        renderIrrigationText();
-
-        document.getElementById("reason").innerText = decision.reason;
-        document.getElementById("heatRisk").innerText = decision.heat_risk;
-        document.getElementById("rainRisk").innerText = decision.rain_risk;
-        document.getElementById("floodRisk").innerText = decision.flood_risk;
-        document.getElementById("overallRisk").innerText = decision.risk;
-    } catch(error) {
-        console.log("Intelligence error:", error);
-    } finally {
-        intelligenceBusy = false;
-    }
-}
-
-window.addEventListener("DOMContentLoaded", function() {
-    const savedLanguage = localStorage.getItem("agrivise_language") || "en";
-    document.getElementById("languageSelect").value = savedLanguage;
-    changeLanguage(savedLanguage);
-
-    requestLaptopLocation();
-    updateSensors();
-    updateIntelligence();
-    // loadSensorHistory();
-});
-
-setInterval(updateSensors, 1000);
-setInterval(updateIntelligence, 30000);
-setInterval(requestLaptopLocation, 600000);
-// setInterval(loadSensorHistory, 10000);
-</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
 
 </body>
 </html>
